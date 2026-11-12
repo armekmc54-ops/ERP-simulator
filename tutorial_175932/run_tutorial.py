@@ -10,7 +10,7 @@ from neo4j import GraphDatabase
 from neo4j.time import DateTime
 
 from ingest_football_data import (
-    load_data, create_indexes, ingest_matches, ingest_goals, ingest_shootouts,
+    load_data, create_indexes, ingest_matches, ingest_goals, ingest_shootouts, make_match_id,
 )
 
 
@@ -93,11 +93,24 @@ def main():
         evidence['merge_nodes_created'] = [first.summary.counters.nodes_created, second.summary.counters.nodes_created]
         with driver.session(database=database) as session:
             evidence['world_cup_scorers'] = session.execute_read(top_scorers, 'FIFA World Cup', 5)
+        # Independently calculate the expected scorer ranking from the pinned CSVs.
+        # This validates the graph against its input instead of a 2024 article value.
+        valid_matches = matches.dropna(subset=['home_score', 'away_score'])
+        world_cup_ids = set(
+            valid_matches[valid_matches['tournament'] == 'FIFA World Cup'].apply(make_match_id, axis=1)
+        )
+        world_cup_goals = goals[goals.apply(make_match_id, axis=1).isin(world_cup_ids)].copy()
+        world_cup_goals['scorer'] = world_cup_goals['scorer'].fillna('Unnamed Player')
+        ranking = (world_cup_goals.groupby('scorer').size().reset_index(name='Goals')
+                   .rename(columns={'scorer': 'Player'})
+                   .sort_values(['Goals', 'Player'], ascending=[False, True]).head(5))
+        evidence['expected_scorers_from_csv'] = ranking.to_dict(orient='records')
+        print(json.dumps(evidence, indent=2, ensure_ascii=False), flush=True)
         assert evidence['world_cup_winner'][0]['Team'] == 'Brazil'
         assert len(evidence['euro_top_3']) == 3
         assert evidence['create_coach'] == {'nodes_created': 1, 'relationships_created': 1}
         assert evidence['merge_nodes_created'] == [1, 0]
-        assert evidence['world_cup_scorers'][0] == {'Player': 'Miroslav Klose', 'Goals': 16}
+        assert evidence['world_cup_scorers'] == evidence['expected_scorers_from_csv']
         assert sum(r['count'] for r in evidence['nodes_by_label']) > 64000
         assert sum(r['count'] for r in evidence['relationships_by_type']) > 340000
     evidence['status'] = 'passed'
