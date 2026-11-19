@@ -1,0 +1,30 @@
+name: GitHub Actions Demo 175932
+run-name: Introducción a GitHub Actions
+on:
+  push:
+    branches: ['175932']
+    paths: ['.github/workflows/github-actions-demo.yml', 'docs/175932/**']
+  pull_request:
+    paths: ['.github/workflows/github-actions-demo.yml', 'docs/175932/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mostrar evento y runner
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          RUNNER_OS: ${{ runner.os }}
+          BRANCH: ${{ github.ref }}
+        run: |
+          echo "Evento: $EVENT_NAME"
+          echo "Runner: $RUNNER_OS"
+          echo "Referencia: $BRANCH"
+      - name: Descargar código
+        uses: actions/checkout@v6
+      - name: Explorar archivos
+        run: ls -la
+      - name: Registrar resultado
+        run: echo "Inicio rápido completado" >> "$GITHUB_STEP_SUMMARY"
