@@ -1,15 +1,16 @@
-# Proyecto local - 175932
+# APReceiptCapacityAgent - 175932
 
-Se prepararon tres avances: 01_plan, 02_diseno y 03_implementacion.
-Borrador del agente APReceiptCapacityAgent para capacidad acumulada de facturas
+Se completaron plan, diseño, implementación, pruebas y documentación.
+Agente APReceiptCapacityAgent para capacidad acumulada de facturas
 por recepción en cuentas por pagar.
 
-**Estado: implementación inicial no probada. No se hicieron commits ni PR.**
+**Estado: 15 pruebas correctas en tres bases reales; PR #302 abierto, no fusionado.**
 La rama remota feature/175932 se había creado antes de este trabajo.
-Este paquete no es un checkout Git y no cambia ninguna rama o archivo del ERP.
+Los archivos se proponen en AR&AP/agents/175932, sin reemplazar esquemas compartidos.
 
-El Issue se proporciona como borrador; su publicación se hará cuando el alumno
-lo autorice. Los ejemplos son datos sintéticos, no evidencia.
+El Issue #301 está publicado en el repositorio del profesor. Los ejemplos son
+datos sintéticos; la evidencia real se conserva en 04_pruebas_evidencias/.
 
-Leer 03_implementacion/README.md para las órdenes de ejecución futura.
-Las pruebas, resultados, capturas y PDF final siguen pendientes.
+Leer 03_implementacion/README.md para ejecutar la demostración.
+La entrega y el PDF se encuentran en 05_entrega/.
+PR: https://github.com/jesusrevilla/ERP-simulator/pull/302

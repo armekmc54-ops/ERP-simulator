@@ -1,7 +1,7 @@
-# Implementación inicial - fase 3
+# Implementación y validación - fases 3 y 4
 
-**No probada.** No se ejecutaron comandos de inicialización, escrituras en bases
-de datos, pruebas ni exportaciones. No hay evidencia de éxito todavía.
+**Validada en GitHub Actions:** 15 pruebas correctas y 31 eventos reconciliados
+en PostgreSQL, Neo4j y MongoDB. Consultar ../04_pruebas_evidencias/.
 
 ## Requisitos y ejecución futura
 
@@ -25,7 +25,7 @@ python agent.py status
 python agent.py export
 ```
 
-## Escenario previsto, aún no ejecutado
+## Escenario ejecutado
 
 Recibido 10; primera factura de 6 reserva 6. Otra de 6 debe bloquearse porque
 solo quedan 4. Crédito de cantidad de 2 a la primera factura libera 2;
@@ -56,5 +56,6 @@ El grafo conserva cantidades como texto para no perder precisión decimal.
 
 No ejecutar borrados generales, MATCH (n) DETACH DELETE n ni DROP SCHEMA como
 parte del uso normal. La preparación de fixtures aislados, pruebas de fallos y
-concurrencia, permisos productivos y automatización en Actions queda pendiente.
-No se incluye un workflow activo para evitar ejecutar fases todavía no autorizadas.
+concurrencia se ejecutó en una base temporal. Los permisos productivos siguen pendientes.
+El workflow .github/workflows/agent-capacity-175932.yml ejecuta verify_project.py
+y publica los resultados como artefacto. No usa secretos de bases productivas.

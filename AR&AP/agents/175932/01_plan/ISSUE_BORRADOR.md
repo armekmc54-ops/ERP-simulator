@@ -1,6 +1,6 @@
 # [Plan de Trabajo] APReceiptCapacityAgent - 175932
 
-**Borrador local: no publicado como Issue.**
+**Versión local del plan. Issue publicado: https://github.com/jesusrevilla/ERP-simulator/issues/301**
 
 # Información del Alumno
 Alumno: José Armando Palomo Cerda
