@@ -17,10 +17,20 @@ La publicación del PR no equivale a aprobación ni merge. No se ejecuta una
 fusión automática ni se afirma que los documentos productivos del ERP estén
 ya conectados al adaptador de demostración.
 
-El workflow propio APReceiptCapacityAgent pasa. En el repositorio original,
-el control heredado Neo4j Tutorial Pipeline CI falla por URI de conexión vacía
-y luego driver no definido en ingest_football_data.py. Ver run 45908209213.
-No se afirma que todos los controles generales del repositorio estén en verde.
+Los cinco controles del PR pasaron sobre el commit
+037a4a2057409d5ad81f97c6165432299ba9290c:
+
+- MongoDB 184027: https://github.com/jesusrevilla/ERP-simulator/actions/runs/45909807417
+- MongoDB 184149: https://github.com/jesusrevilla/ERP-simulator/actions/runs/45909807337
+- MRP: https://github.com/jesusrevilla/ERP-simulator/actions/runs/45909807249
+- Tutorial Neo4j: https://github.com/jesusrevilla/ERP-simulator/actions/runs/45909807353
+- Agente: https://github.com/jesusrevilla/ERP-simulator/actions/runs/45909807328
+
+Se corrigieron Python incompatible en MongoDB, imports y catálogo del tutorial
+BOM movido, y conexión del tutorial Neo4j mediante un servicio temporal.
+MRP reportó 45 pruebas correctas y 1 omitida por su condición previa; no se
+añadieron exclusiones. El agente conserva sus 15 pruebas correctas.
+La aprobación y el merge siguen pendientes del mantenedor.
 
 ## Explicación breve para clase
 
@@ -31,3 +41,4 @@ una nueva solicitud de 6. PostgreSQL decide con bloqueo de fila para proteger
 operaciones simultáneas, Neo4j muestra las relaciones entre decisiones y
 documentos y MongoDB guarda la bitácora. El outbox permite recuperar reportes
 cuando falla una base secundaria sin duplicar el efecto de la factura.
+
