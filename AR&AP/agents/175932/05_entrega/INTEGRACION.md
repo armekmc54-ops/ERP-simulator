@@ -17,6 +17,11 @@ La publicación del PR no equivale a aprobación ni merge. No se ejecuta una
 fusión automática ni se afirma que los documentos productivos del ERP estén
 ya conectados al adaptador de demostración.
 
+El workflow propio APReceiptCapacityAgent pasa. En el repositorio original,
+el control heredado Neo4j Tutorial Pipeline CI falla por URI de conexión vacía
+y luego driver no definido en ingest_football_data.py. Ver run 45908209213.
+No se afirma que todos los controles generales del repositorio estén en verde.
+
 ## Explicación breve para clase
 
 El agente vigila cuántas piezas de una recepción ya están facturadas. Si recibo
